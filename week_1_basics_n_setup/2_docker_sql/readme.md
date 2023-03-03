@@ -43,7 +43,7 @@ winpty docker run -it \
 
 
 ### PgCLI
-You can pip install pgcli to interface with the database from command line. Did not work for me. I had to use sqlalchemy. Make sure you also pip install psycop2
+You can pip install pgcli to interface with the database from command line. Did not work for me.  I probably need to change the local port from 5432 to 5431 because the local machine's postgres database is already listening 5432. I had to use sqlalchemy. Make sure you also pip install psycop2
 
 ## ingest_data script and container
 - Take 7 paramters with argparse library
@@ -79,7 +79,7 @@ docker run -it \
   taxi_ingest:v001 \
     --user=root \
     --password=root \
-    --host=pg-database \
+    --host=pgdatabase \
     --port=5432 \
     --db=ny_taxi \
     --table_name=yellow_taxi_trips \
@@ -88,6 +88,22 @@ docker run -it \
 
 ## Putting it all together. Docker Compose
 - Make a docker-compose:yaml file
-- This will automacilly contstruct the the postgres andd pgadmin containers
+- This will automacilly contstruct the the postgres andd pgadmin containers and create a network
 - use docker-compose up to create 
 use docker compose-down to take down
+- docker compose will create it's own network named after the directory its in. In this example you can change the docker run argument --network to 2_docker_sql_default
+
+```bash
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+docker run -it \
+  --network=2_docker_sql_default \
+  taxi_ingest:v001 \
+    --user=root \
+    --password=root \
+    --host=pgdatabase \
+    --port=5432 \
+    --db=ny_taxi \
+    --table_name=yellow_taxi_trips2 \
+    --url=${URL}
+```

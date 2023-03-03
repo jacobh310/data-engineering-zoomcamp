@@ -1,0 +1,5 @@
+Terraform: Infrastructure as code. Basically a way to use code for Infrastructure. Used to provision and manage cloud providers various services 
+making it easier to automate and version 
+https://www.youtube.com/watch?v=l5k1ai_GBDE
+
+Within the Main.tf file you will have a t
