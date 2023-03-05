@@ -20,6 +20,9 @@ Made pipeline with docker in week one. However it combines the steps of downlaod
 
 # Airflow
 
+# Project Workflow
+ download_dataset_task >> format_to_parquet_task >> local_to_gcs_task >> bigquery_external_table_task
+
 ## Airflow architecture
 ![alt text](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/f5158126b65affb7f880b885aeb2b8162d5c313f/week_2_data_ingestion/airflow/docs/arch-diag-airflow.png)
 
@@ -71,6 +74,14 @@ For more information, see [Architecture Overview](https://airflow.apache.org/doc
     
     
 ## Airflow: docker-compose.yaml file
+
+### Basics:
+- environment: set docker enviroment variables in this sections
+- volumes: matches a directory on the local machine to one inside of the docker container
+  - if there is no mapping then docker will create volumes folder somewhere in you local machine. 
+- Services: all components need by airflow. The docker images docker will downlaod to run ariflow within docker containers.
+  - like redis, postegress, the scheduler, workers, and the webserver
+- airflow innit runs first to create the user and load the environment variables specified in the yaml file
 
     Back in your `docker-compose.yaml`:
    * In `x-airflow-common`: 
