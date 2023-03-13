@@ -12,10 +12,7 @@ Pre-reqs:
 3. Set GCP_GCS_BUCKET as your bucket or change default value of BUCKET
 """
 
-# services = ['fhv','green','yellow']
-init_url = 'https://d37ci6vzurychx.cloudfront.net/trip-data/'
-# switch out the bucketname
-BUCKET = os.environ.get("GCP_GCS_BUCKET", "dtc_data_lake_dtc-de-course-379502")
+
 
 
 def upload_to_gcs(bucket, object_name, local_file):
@@ -48,7 +45,7 @@ def web_to_gcs(year, service):
         request_url = init_url + file_name
         # r = requests.get(request_url)
         df = pd.read_parquet(request_url)
-        df.airport_fee = pd.to_numeric(df.airport_fee, errors='coerce')
+        # df.airport_fee = pd.to_numeric(df.airport_fee, errors='coerce')
 
         df.to_parquet(file_name, engine='pyarrow')
         print(f"Parquet: {file_name} downloaded. Uploading to GCS")
@@ -59,11 +56,15 @@ def web_to_gcs(year, service):
         os.remove(file_name)
         print("File deleted")
 
-      
+
+
+# services = ['fhv','green','yellow']
+init_url = 'https://d37ci6vzurychx.cloudfront.net/trip-data/'
+# switch out the bucketname
+BUCKET = os.environ.get("GCP_GCS_BUCKET", "dtc_data_lake_dtc-de-course-379502")
 
 # web_to_gcs('2019', 'green')
 # web_to_gcs('2020', 'green')
-web_to_gcs('2019', 'yellow')
-web_to_gcs('2020', 'yellow')
-
-
+# web_to_gcs('2019', 'yellow')
+# web_to_gcs('2020', 'yellow')
+web_to_gcs('2019', 'fhv')
