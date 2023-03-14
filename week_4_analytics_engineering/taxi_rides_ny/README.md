@@ -12,3 +12,7 @@ Templatating language
 name for the schema
 
 - models from stg_green_tripdata.sql sace to dbt_jhernandez schema in bigquery. Do not know how to point that to another schema
+
+- For the facts_trip model becuase external green and yellow data come from google storage we need to add the object viewer permission to the gcs account and 
+restart the environment. Do not know why did not need to to this for the stg_yellow and green models. Maybe becasue we we only materilizing a view and not a table like
+we are in facts_trip model
