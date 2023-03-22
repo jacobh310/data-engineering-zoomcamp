@@ -48,4 +48,5 @@ C- in the yaml file you need to (1) remove the image and add build as below with
 docker exec -it master_ID bash (6) launch jupyter notebook running : jupyter notebook --ip=0.0.0.0 (without this ip adress
 your local machine wont be able to launch jupyter notebook through localhost:8888.
 
-Hope i covered every detail.
+# Spark Cluster
+- Better to have smaller files to executers are not left idle while large file is being processed by another executer
